@@ -1,10 +1,11 @@
 import React from 'react';
+import Main from './Components/Main';
 
 
 function App() {
   return (
     <div>
-      <h1>Yo yo bittu singh aaaa !!</h1>
+      <Main />
     </div>
   );
 }

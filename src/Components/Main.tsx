@@ -1,10 +1,12 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../Redux/Store';
+import {  RootState } from '../Redux/Store';
+import { ThunkDispatch } from 'redux-thunk';
 import { fetchWeatherData } from '../Redux/weatherSlice';
 
+
 const Main: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, undefined, any>>();
   const [city, setCity] = useState<string>('');
   const weatherData = useSelector((state: RootState) => state.weather.data);
   const selectedCity = useSelector((state: RootState) => state.weather.city);
