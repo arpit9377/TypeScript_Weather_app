@@ -52,19 +52,19 @@ const Main: React.FunctionComponent = () => {
         </button>
       </div>
 
-      {weatherData && weatherData.temperature && (
+      {weatherData && weatherData.data && (
         <div className="d-flex justify-content-center align-items-center flex-column">
           <div className="card p-3 mb-3 bg-transparent" style={{ width: '400px' }}>
             <h5 className="card-title">Current Weather</h5>
             <p className="card-text">City: {selectedCity}</p>
-            <p className="card-text">Temperature: {weatherData.temperature}°C</p>
+            <p className="card-text">Temperature: {weatherData.data[0].temp}°C</p>
             <p className="card-text">
-              Min Temperature: {weatherData.minTemperature}°C | Max Temperature: {weatherData.maxTemperature}°C
+            Min Temperature: {weatherData.data[0].app_min_temp}°C | Max Temperature: {weatherData.data[0].app_max_temp}°C
             </p>
-            <p className="card-text">Weather Description: {weatherData.weatherDescription}</p>
+            <p className="card-text">Weather Description: {weatherData.data[0].weather.description}</p>
 
             <img
-              src={`https://www.weatherbit.io/static/img/icons/${weatherData.weatherIcon}.png`}
+              src={`https://www.weatherbit.io/static/img/icons/${weatherData.data[0].weatherIcon}.png`}
               alt="Current Weather Icon"
               style={{ width: '50px', height: '50px', position: 'absolute', top: '5px', right: '5px' }}
             />
