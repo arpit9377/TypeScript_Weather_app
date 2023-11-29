@@ -1,9 +1,21 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  RootState } from '../Redux/Store';
+import { RootState } from '../Redux/Store';
 import { ThunkDispatch } from 'redux-thunk';
 import { fetchWeatherData } from '../Redux/weatherSlice';
+import { Dispatch } from 'redux';
 
+interface WeatherDay {
+  ob_time: string;
+  valid_date: string;
+  temp: number;
+  app_min_temp: number;
+  app_max_temp: number;
+  weather: {
+    description: string;
+    icon: string;
+  };
+}
 
 const Main: React.FunctionComponent = () => {
   const dispatch = useDispatch<ThunkDispatch<RootState, undefined, any>>();
@@ -53,24 +65,21 @@ const Main: React.FunctionComponent = () => {
       </div>
 
       {weatherData && weatherData.data && (
-        <div className="d-flex justify-content-center align-items-center flex-column">
-          <div className="card p-3 mb-3 bg-transparent" style={{ width: '400px' }}>
-            <h5 className="card-title">Current Weather</h5>
-            <p className="card-text">City: {selectedCity}</p>
-            <p className="card-text">Temperature: {weatherData.data[0].temp}°C</p>
-            <p className="card-text">
-            Min Temperature: {weatherData.data[0].app_min_temp}°C | Max Temperature: {weatherData.data[0].app_max_temp}°C
-            </p>
-            <p className="card-text">Weather Description: {weatherData.data[0].weather.description}</p>
-
-            <img
-              src={`https://www.weatherbit.io/static/img/icons/${weatherData.data[0].weatherIcon}.png`}
-              alt="Current Weather Icon"
-              style={{ width: '50px', height: '50px', position: 'absolute', top: '5px', right: '5px' }}
-            />
-          </div>
-
-          
+        <div className="d-flex justify-content-between">
+          {weatherData.data.slice(1, 7).map((day: WeatherDay) => (
+            <div key={day.ob_time} className="card p-3 mb-3 bg-transparent mt-3 ml-3" style={{ width: '200px', margin: '0 10px', position: 'relative' }}>
+              <h6 className="card-title">{formatDate(day.valid_date)}</h6>
+              <p className="card-text">Temperature: {day.temp}°C</p>
+              <p className="card-text">Min Temperature: {day.app_min_temp}°C</p>
+              <p className="card-text">Max Temperature: {day.app_max_temp}°C</p>
+              <p className="card-text">Weather: {day.weather.description}</p>
+              <img
+                src={`https://www.weatherbit.io/static/img/icons/${day.weather.icon}.png`}
+                alt={`${day.weather.description} Icon`}
+                style={{ width: '50px', height: '50px', position: 'absolute', top: '5px', right: '5px' }}
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>
