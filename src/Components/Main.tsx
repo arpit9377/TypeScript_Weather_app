@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../Redux/Store';
 import { ThunkDispatch } from 'redux-thunk';
 import { fetchWeatherData } from '../Redux/weatherSlice';
-import './Main.css';
+import './Main.css'
 
 interface WeatherDay {
   ob_time: string;
@@ -51,88 +51,81 @@ const Main: React.FunctionComponent = () => {
     return formattedDate === 'Invalid Date' ? datetime : formattedDate;
   };
 
-  const handleLogout = () => {
-    console.log('Logout clicked');
-  };
 
   return (
-    <>
-      <div className="container">
-        <div className="p-3 bg-transparent input-group mb-3">
-          <span className="input-group-text">Right now in,</span>
-          <input
-            type="text"
-            className="form-control rounded"
-            placeholder="Enter city name"
-            value={city}
-            onChange={handleCityChange}
-            style={{ height: '40px' }}
-          />
-          <span className="input-group-text">and it's forecast</span>
-        </div>
-
-        <div className="position-absolute top-0 end-0 m-3">
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-
-        {weatherData && weatherData.data && (
-          <div className="d-flex flex-column align-items-center">
-            <div className="card p-3 mb-3 bg-transparent today-card align-self-center">
-              <h5 className="card-title">Current Weather</h5>
-              <p className="card-text">City: {selectedCity}</p>
-              <p className="card-text">
-                Temperature: {weatherData.data[0].temp}°C
-              </p>
-              <p className="card-text">
-                Min Temperature: {weatherData.data[0].app_min_temp}°C | Max
-                Temperature: {weatherData.data[0].app_max_temp}°C
-              </p>
-              <p className="card-text">
-                Weather Description:{' '}
-                {weatherData.data[0].weather.description}
-              </p>
-              <img
-                src={`https://www.weatherbit.io/static/img/icons/${weatherData.data[0].weather.icon}.png`}
-                alt="Current Weather Icon"
-                className="current-weather-icon"
-              />
-            </div>
-
-            <div className="d-flex justify-content-between forecast-container">
-              {weatherData.data.slice(1, 7).map((day: WeatherDay) => (
-                <div
-                  key={day.ob_time}
-                  className="card p-3 mb-3 bg-transparent forecast-card"
-                >
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h6 className="card-title">{formatDate(day.valid_date)}</h6>
-                    <img
-                      src={`https://www.weatherbit.io/static/img/icons/${day.weather.icon}.png`}
-                      alt={`${day.weather.description} Icon`}
-                      className="weather-icon"
-                    />
-                  </div>
-                  <p className="card-text">Temperature: {day.temp}°C</p>
-                  <p className="card-text">
-                    Min Temperature: {day.app_min_temp}°C
-                  </p>
-                  <p className="card-text">
-                    Max Temperature: {day.app_max_temp}°C
-                  </p>
-                  <p className="card-text">Weather: {day.weather.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+    <div className="container mt-5">
+      <div className="p-3 bg-light input-group mb-3 "  >
+        <span className="input-group-text">Right now in,</span>
+        <input
+          type="text"
+          className="form-control rounded"
+          placeholder="Enter city name"
+          value={city}
+          onChange={handleCityChange}
+          style={{ height: '40px' }}
+        />
+        <span className="input-group-text">and it's forecast</span>
       </div>
-    </>
+
+
+      {weatherData && weatherData.data && (
+        <div className="d-flex flex-column align-items-center">
+          <div className="card p-3 mb-3 bg-light today-card text-center" style={{ height: '250px', backgroundColor: '#A28089' }}>
+            <h5 className="card-title">Current Weather</h5>
+            <img
+              src={`https://www.weatherbit.io/static/img/icons/${weatherData.data[0].weather.icon}.png`}
+              alt="Current Weather Icon"
+              className="current-weather-icon"
+              style={{ width: '60px', height: '50px' }}
+            />
+            <p className="card-text">City: {selectedCity}</p>
+            <p className="card-text">
+              Temperature: {weatherData.data[0].temp}°C
+            </p>
+            <p className="card-text">
+              Min Temperature: {weatherData.data[0].app_min_temp}°C | Max
+              Temperature: {weatherData.data[0].app_max_temp}°C
+            </p>
+            <p className="card-text">
+              Weather Description: {weatherData.data[0].weather.description}
+            </p>
+           
+          </div>
+
+          <div className="d-flex justify-content-between w-100">
+            {weatherData.data.slice(1, 7).map((day: WeatherDay) => (
+              <div
+                key={day.ob_time}
+                className="card p-3 mb-3 bg-light forecast-card text-center"
+                style={{ position: 'relative', margin: '10px', backgroundColor: '#a28089' }}
+              >
+                <div className="d-flex justify-content-between align-items-center">
+                  <h6 className="card-title">
+                    {formatDate(day.valid_date)}
+                  </h6>
+                  <img
+                    src={`https://www.weatherbit.io/static/img/icons/${day.weather.icon}.png`}
+                    alt={`${day.weather.description} Icon`}
+                    className="weather-icon"
+                    style={{ width: '50px', height: '50px' }}
+                  />
+                </div>
+                <p className="card-text">Temperature: {day.temp}°C</p>
+                <p className="card-text">
+                  Min Temperature: {day.app_min_temp}°C
+                </p>
+                <p className="card-text">
+                  Max Temperature: {day.app_max_temp}°C
+                </p>
+                <p className="card-text">
+                  Weather: {day.weather.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

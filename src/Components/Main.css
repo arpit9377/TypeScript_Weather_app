@@ -1,68 +1,18 @@
 body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #c1cfea;
-  overflow: hidden;
-  position: relative;
-}
-
-.input-group {
-  margin-bottom: 20px;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e8f9fd; /* Set background color for the entire body */
+  }
   
-}
-
-.form-control {
-  height: 40px;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.today-card {
-  width: 400px;
-  margin-bottom: 20px;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-}
-
-.forecast-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.forecast-card {
-  width: 200px;
-  margin: 0 10px 20px;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.card-text {
-  margin-bottom: 5px;
-}
-
-.weather-icon {
-  width: 50px;
-  height: 50px;
-  margin-left: auto;
-}
-.current-weather-icon{
-  margin-left: auto;
-}
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  
+  
